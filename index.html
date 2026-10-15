@@ -6,109 +6,82 @@
 <title>植物大战僵尸:历史版</title>
 <style>
 *{box-sizing:border-box}
-:root{--green:#397d32;--gold:#ffdb57;--panel:#193a24}
-body{margin:0;font-family:Arial,"Microsoft YaHei",sans-serif;color:#fff;background:#15251b;overflow-x:hidden;user-select:none}
+body{margin:0;background:#182a1c;color:white;font-family:Arial,"Microsoft YaHei",sans-serif;user-select:none}
 button{font:inherit;cursor:pointer;touch-action:manipulation}
 .hidden{display:none!important}
-.screen{min-height:100dvh}
-#menu{display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(#163b2a99,#07140edb),url("https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/白天草坪音乐.mp3"),linear-gradient(#5ea84e,#b8d66b 55%,#315c29)}
-.menu-box{width:min(92vw,560px);padding:28px 20px;border:4px solid #b5d27a;border-radius:24px;background:#172b20eF;box-shadow:0 12px 40px #0009}
-h1{margin:0 0 8px;font-size:clamp(27px,6vw,46px);color:#ffe778;text-shadow:3px 4px #5b3017}
-.subtitle{color:#cbe8b7;margin:0 0 25px}
-.big-btn{display:block;width:100%;padding:15px;margin:12px 0;border:3px solid #e9d57c;border-radius:13px;background:linear-gradient(#76c94f,#39852f);color:white;font-weight:bold;font-size:21px;text-shadow:1px 2px #25451b;box-shadow:0 4px #214c23}
-.big-btn:active{transform:translateY(2px);box-shadow:0 2px #214c23}
-.small-btn{padding:8px 12px;border:1px solid #a6c77e;border-radius:9px;background:#274e30;color:white}
-#game{padding:8px;max-width:1100px;margin:auto}
+#menu{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(#102b20dd,#0b170de8)}
+.menu-box{width:min(92vw,560px);padding:26px 20px;text-align:center;background:#193323;border:4px solid #b5d27a;border-radius:22px;box-shadow:0 12px 40px #0009}
+h1{font-size:clamp(28px,6vw,46px);color:#ffe778;text-shadow:3px 4px #5b3017}
+.big-btn{display:block;width:100%;padding:15px;margin:12px 0;border:3px solid #e9d57c;border-radius:13px;background:linear-gradient(#76c94f,#39852f);color:white;font-size:21px;font-weight:bold}
+.note{font-size:12px;color:#c5d8b7;line-height:1.7}
+#musicToggle{position:fixed;right:10px;top:10px;z-index:50;border:2px solid #b9d47c;border-radius:20px;background:#173720eF;color:white;padding:9px 12px;font-size:13px}
+#game{max-width:1100px;margin:auto;padding:8px}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px;padding:9px;background:#182d20;border:2px solid #5b8b3d;border-radius:12px}
 .sun-counter{display:flex;align-items:center;gap:7px;color:#ffe477;font-weight:bold;font-size:20px}
 .sun-counter img{width:32px;height:32px;object-fit:contain}
-.cards{display:flex;gap:7px;overflow-x:auto;padding:5px 2px 10px;scrollbar-width:thin}
-.card{flex:0 0 108px;min-height:96px;position:relative;border:3px solid #a8a477;border-radius:10px;background:linear-gradient(#d7d4a1,#6e8c49);color:#152715;padding:6px 4px;text-align:center;box-shadow:0 3px #263e22}
-.card.selected{border-color:#ffe24c;background:linear-gradient(#fff3a3,#9fce58);box-shadow:0 0 0 3px #ffdf42,0 3px #263e22;transform:translateY(-2px)}
+.small-btn{padding:8px 12px;border:1px solid #a6c77e;border-radius:9px;background:#274e30;color:white}
+.cards{display:flex;gap:7px;overflow-x:auto;padding:5px 4px 10px}
+.card{flex:0 0 108px;min-height:96px;border:3px solid #a8a477;border-radius:10px;background:linear-gradient(#d7d4a1,#6e8c49);color:#152715;padding:6px 4px;text-align:center;box-shadow:0 3px #263e22}
+.card.selected{border-color:#ffe24c;background:linear-gradient(#fff3a3,#9fce58);box-shadow:0 0 0 3px #ffdf42}
 .card.disabled{filter:grayscale(.65);opacity:.75}
-.card img{display:block;width:52px;height:48px;object-fit:contain;margin:auto}
-.card .plant-emoji{font-size:39px;line-height:48px}
-.card .cost{font-weight:bold;font-size:14px}
+.card img{display:block;width:52px;height:46px;object-fit:contain;margin:auto}
 .card .card-name{font-size:13px;font-weight:bold}
-.board-wrap{overflow:hidden;border:4px solid #754723;border-radius:8px;background:#8bba4c;box-shadow:0 6px 18px #0006}
-#board{position:relative;width:100%;aspect-ratio:9/5;background:#78ad43;overflow:hidden;isolation:isolate}
-#board::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 calc(20% - 1px),#345c2c35 calc(20% - 1px) 20%),repeating-linear-gradient(90deg,#b7d77b20 0 calc(11.111% - 1px),#315b293b calc(11.111% - 1px) 11.111%),repeating-linear-gradient(0deg,#a6d36a 0 20%,#80b84d 20% 40%)}
-.cell{position:absolute;width:11.1111%;height:20%;border:1px solid #305c2830}
+.card .cost{font-weight:bold;font-size:14px}
+.board-wrap{overflow:hidden;border:4px solid #754723;border-radius:8px;background:#8bba4c}
+#board{position:relative;width:100%;aspect-ratio:9/5;background:repeating-linear-gradient(0deg,#a6d36a 0 20%,#80b84d 20% 40%);overflow:hidden;isolation:isolate}
+.cell{position:absolute;width:11.1111%;height:20%;border:1px solid #305c2838}
 .plant-image{position:absolute;left:12%;top:4%;width:76%;height:88%;object-fit:contain;pointer-events:none;filter:drop-shadow(1px 2px 1px #24441c77)}
 .plant-emoji-board{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(19px,4vw,42px);pointer-events:none}
 .plant-level{position:absolute;right:1px;top:1px;background:#16351e;color:#ffed6d;border-radius:8px;padding:1px 4px;font-size:10px;z-index:2}
 .zombie{position:absolute;z-index:5;width:9.7%;height:19%;display:flex;align-items:center;justify-content:center;font-size:clamp(22px,4.8vw,46px);filter:drop-shadow(1px 2px 1px #3338);pointer-events:none}
 .zombie .hp{position:absolute;top:0;left:10%;width:80%;height:4px;background:#4a1717;border:1px solid #eee}
 .zombie .hp span{display:block;height:100%;background:#f34d36}
-.pea{position:absolute;z-index:6;width:3.3%;height:3.3%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 0 3px #eaff80)}
-.sun-drop{position:absolute;z-index:10;width:7%;height:14%;object-fit:contain;cursor:pointer;filter:drop-shadow(0 0 5px #ffe77a);animation:sunpulse .8s infinite alternate}
-@keyframes sunpulse{to{transform:scale(1.1)}}
+.pea{position:absolute;z-index:6;width:3.3%;height:3.3%;object-fit:contain;pointer-events:none}
+.sun-drop{position:absolute;z-index:10;width:7%;height:14%;object-fit:contain;cursor:pointer;filter:drop-shadow(0 0 5px #ffe77a);animation:pulse .8s infinite alternate}
+@keyframes pulse{to{transform:scale(1.1)}}
+.blast-effect{position:absolute;z-index:20;transform:translate(-50%,-50%);font-size:clamp(42px,10vw,90px);pointer-events:none;animation:blast .45s ease-out forwards}
+@keyframes blast{0%{opacity:1;scale:.3}60%{opacity:1;scale:1.2}100%{opacity:0;scale:1.6}}
 .hud{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
-.hud button{flex:1 1 auto;padding:10px 12px;border:2px solid #9bc66d;border-radius:9px;background:#284d2e;color:#fff;font-weight:bold}
-.hud button:active{background:#507c36}
+.hud button{flex:1 1 auto;padding:10px;border:2px solid #9bc66d;border-radius:9px;background:#284d2e;color:white;font-weight:bold}
 #status{min-height:24px;text-align:center;color:#ffed9c;font-size:14px;padding:4px}
 #devPanel{padding:10px;border:2px dashed #ffc857;border-radius:12px;background:#332b1d;margin:10px 0}
 #devPanel h3{margin:0 0 8px;color:#ffdf72}
 #devPanel button{margin:3px;padding:8px;border:1px solid #c7a45b;border-radius:7px;background:#584322;color:white}
 .overlay{position:fixed;inset:0;z-index:30;background:#000b;display:flex;align-items:center;justify-content:center;padding:18px}
-.modal{width:min(92vw,440px);background:#203c27;border:3px solid #d9c36c;border-radius:18px;padding:22px;text-align:center;box-shadow:0 12px 50px #0009}
+.modal{width:min(92vw,440px);background:#203c27;border:3px solid #d9c36c;border-radius:18px;padding:22px;text-align:center}
 .modal h2{color:#ffe477}
-.modal button{padding:11px 15px;margin:5px;border:2px solid #c4d28a;border-radius:9px;background:#497d36;color:#fff;font-weight:bold}
-#musicToggle{position:fixed;right:10px;top:10px;z-index:50;border:2px solid #b9d47c;border-radius:20px;background:#173720eF;color:#fff;padding:9px 12px;font-size:13px}
-.note{font-size:12px;color:#c5d8b7;line-height:1.7}
-@media(max-width:600px){
- #game{padding:5px}
- .topbar{padding:6px}
- .card{flex-basis:88px;min-height:88px}
- .card img{width:45px;height:42px}
- .card .plant-emoji{font-size:34px;line-height:42px}
- .hud button{padding:9px 7px;font-size:13px}
- #board{aspect-ratio:9/5}
- .sun-counter{font-size:17px}
-}
+.modal button{padding:11px 15px;margin:5px;border:2px solid #c4d28a;border-radius:9px;background:#497d36;color:white;font-weight:bold}
+@media(max-width:600px){#game{padding:5px}.topbar{padding:6px}.card{flex-basis:88px;min-height:88px}.card img{width:45px;height:42px}.hud button{padding:9px 7px;font-size:13px}.sun-counter{font-size:17px}}
 </style>
 </head>
 <body>
-<button id="musicToggle" type="button">🔊 音乐：开</button>
-
+<button id="musicToggle">🔊 音乐：开</button>
 <audio id="bgMusic" loop preload="none"></audio>
 <audio id="effectMusic" preload="none"></audio>
 
-<section id="menu" class="screen">
+<section id="menu">
  <div class="menu-box">
   <h1>植物大战僵尸</h1>
-  <h2 style="color:#ffe778;margin:0 0 12px">历史版</h2>
-  <p class="subtitle">历史人物大战僵尸 · 测试版本</p>
+  <h2 style="color:#ffe778">历史版</h2>
+  <p>历史人物大战僵尸 · 测试版本</p>
   <button id="startBtn" class="big-btn">🌱 开启冒险</button>
   <button id="devBtn" class="big-btn">🛠️ 开发者模式</button>
-  <p class="note">手机触屏可玩 · 点击卡片选植物，再点击草坪种植<br>再次点击已选卡片即可取消选择</p>
+  <p class="note">点击卡片选择植物，再点草坪种植。再次点击已选卡片即可取消。点击已种植的植物可以升级。</p>
  </div>
 </section>
 
-<section id="game" class="screen hidden">
+<section id="game" class="hidden">
  <div class="topbar">
-  <div class="sun-counter">
-   <img id="sunIcon" alt="阳光" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光.jpg">
-   <span id="sunCount">150</span>
-   <span style="font-size:12px;color:#cde2b8">阳光</span>
-  </div>
+  <div class="sun-counter"><img id="sunIcon" alt="阳光" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光.jpg"><span id="sunCount">150</span><span style="font-size:12px;color:#cde2b8">阳光</span></div>
   <div>第 <b id="waveText">1</b> 波</div>
   <button class="small-btn" id="backBtn">返回菜单</button>
  </div>
-
  <div class="cards" id="cards">
-  <button class="card" data-plant="pea">
-   <img alt="豌豆射手" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/以色列总统豌豆射手.jpg">
-   <div class="card-name">总统豌豆射手</div><div class="cost">☀ 100</div>
-  </button>
-  <button class="card" data-plant="sun">
-   <img alt="向日葵" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光将.jpg">
-   <div class="card-name">阳光将</div><div class="cost">☀ 50</div>
-  </button>
+  <button class="card" data-plant="pea"><img alt="总统豌豆射手" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/以色列总统豌豆射手.jpg"><div class="card-name">总统豌豆射手</div><div class="cost">☀ 100</div></button>
+  <button class="card" data-plant="sun"><img alt="阳光将" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光将.jpg"><div class="card-name">阳光将</div><div class="cost">☀ 50</div></button>
+  <button class="card" data-plant="bomb"><img alt="共产炸弹" src="https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/共产炸弹.jpg"><div class="card-name">共产炸弹</div><div class="cost">☀ 150</div></button>
  </div>
-
  <div class="board-wrap"><div id="board" aria-label="草坪"></div></div>
-
  <div class="hud">
   <button id="skillBtn">💥 全屏攻击（100）</button>
   <button id="cancelBtn">✖ 取消选植物</button>
@@ -116,501 +89,326 @@ h1{margin:0 0 8px;font-size:clamp(27px,6vw,46px);color:#ffe778;text-shadow:3px 4
   <button id="loadBtn">📂 读档</button>
  </div>
  <div id="status">选择植物卡片，然后点击草坪种植。点击植物可升级。</div>
-
  <div id="devPanel" class="hidden">
   <h3>🛠️ 开发者模式</h3>
-  <button id="addSunBtn">阳光 +500</button>
-  <button id="spawnZombieBtn">生成僵尸</button>
-  <button id="spawnBossBtn">生成 Boss</button>
-  <button id="clearZombieBtn">清除僵尸</button>
-  <button id="devSaveBtn">保存存档</button>
-  <button id="devLoadBtn">读取存档</button>
-  <button id="resetBtn">重置游戏</button>
+  <button id="addSunBtn">阳光 +500</button><button id="spawnZombieBtn">生成僵尸</button><button id="spawnBossBtn">生成 Boss</button><button id="clearZombieBtn">清除僵尸</button><button id="devSaveBtn">保存存档</button><button id="devLoadBtn">读取存档</button><button id="resetBtn">重置游戏</button>
  </div>
 </section>
 
 <div id="gameOver" class="overlay hidden">
- <div class="modal">
-  <h2 id="resultTitle">游戏结束</h2>
-  <p id="resultText">僵尸突破了防线！</p>
-  <button id="retryBtn">重新开始</button>
-  <button id="overMenuBtn">返回主菜单</button>
- </div>
+ <div class="modal"><h2 id="resultTitle">游戏结束</h2><p id="resultText">僵尸突破了防线！</p><button id="retryBtn">重新开始</button><button id="overMenuBtn">返回主菜单</button></div>
 </div>
 
 <script>
 "use strict";
 
-const MUSIC = {
- lawn: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/白天草坪音乐.mp3",
- lose: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/失败被吃掉脑子.mp3",
- menu: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/主菜单音乐.mp3",
- start: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/开启冒险.mp3"
+const MUSIC={
+ lawn:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/白天草坪音乐.mp3",
+ lose:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/失败被吃掉脑子.mp3",
+ menu:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/主菜单音乐.mp3",
+ start:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/开启冒险.mp3"
 };
-
-const IMAGES = {
- pea: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/以色列总统豌豆射手.jpg",
- bullet: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/以色列豌豆.jpg",
- sunPlant: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光将.jpg",
- sun: "https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光.jpg"
+const IMAGES={
+ pea:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/以色列总统豌豆射手.jpg",
+ bullet:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/以色列豌豆.jpg",
+ sunPlant:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光将.jpg",
+ sun:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/阳光.jpg",
+ bomb:"https://github.com/pvzlishi/pvztuku/raw/refs/heads/main/共产炸弹.jpg"
 };
+const $=id=>document.getElementById(id);
+const board=$("board"),bgMusic=$("bgMusic"),effectMusic=$("effectMusic");
+const ROWS=5,COLS=9,COST={pea:100,sun:50,bomb:150};
+let musicEnabled=true,currentMusic="",selectedPlant=null,sun=150;
+let plants=[],zombies=[],peas=[],sunDrops=[];
+let gameRunning=false,devMode=false,wave=1,zombieSpawnTimer=0,sunTimer=0;
+let animationId=0,lastTime=0,nextId=1,lastSunDrop=0,gameStartTime=0,spawnInterval=5.5;
 
-const $ = id => document.getElementById(id);
-const board = $("board");
-const bgMusic = $("bgMusic");
-const effectMusic = $("effectMusic");
-const musicToggle = $("musicToggle");
-
-let musicEnabled = true;
-let currentMusic = "";
-let selectedPlant = null;
-let sun = 150;
-let plants = [];
-let zombies = [];
-let peas = [];
-let sunDrops = [];
-let gameRunning = false;
-let devMode = false;
-let wave = 1;
-let zombieSpawnTimer = 0;
-let lastTime = 0;
-let animationId = 0;
-let sunTimer = 0;
-let nextId = 1;
-let lastSunDrop = 0;
-let gameStartTime = 0;
-let spawnInterval = 5.5;
-
-const ROWS = 5, COLS = 9;
-const COST = {pea:100, sun:50};
-const MAX_WAVE_ZOMBIES = 12;
-
-function playMusic(url, loop=true) {
- if (!musicEnabled || !url) return;
- if (currentMusic === url && !bgMusic.paused) return;
- currentMusic = url;
- bgMusic.pause();
- bgMusic.src = url;
- bgMusic.loop = loop;
- bgMusic.currentTime = 0;
+function playMusic(url,loop=true){
+ if(!musicEnabled||!url)return;
+ if(currentMusic===url&&!bgMusic.paused)return;
+ currentMusic=url;bgMusic.pause();bgMusic.src=url;bgMusic.loop=loop;bgMusic.currentTime=0;
  bgMusic.play().catch(()=>{});
 }
-
-function playEffect(url) {
- if (!musicEnabled || !url) return;
- effectMusic.pause();
- effectMusic.src = url;
- effectMusic.currentTime = 0;
- effectMusic.play().catch(()=>{});
+function playEffect(url){
+ if(!musicEnabled||!url)return;
+ effectMusic.pause();effectMusic.src=url;effectMusic.currentTime=0;effectMusic.play().catch(()=>{});
 }
-
-musicToggle.addEventListener("click", () => {
- musicEnabled = !musicEnabled;
- musicToggle.textContent = musicEnabled ? "🔊 音乐：开" : "🔇 音乐：关";
- if (!musicEnabled) {
-  bgMusic.pause();
-  effectMusic.pause();
-  return;
- }
- currentMusic = "";
- if (!$("menu").classList.contains("hidden")) playMusic(MUSIC.menu);
- else if (!$("gameOver").classList.contains("hidden")) playMusic(MUSIC.lose,false);
+$("musicToggle").addEventListener("click",()=>{
+ musicEnabled=!musicEnabled;
+ $("musicToggle").textContent=musicEnabled?"🔊 音乐：开":"🔇 音乐：关";
+ if(!musicEnabled){bgMusic.pause();effectMusic.pause();return;}
+ currentMusic="";
+ if(!$("menu").classList.contains("hidden"))playMusic(MUSIC.menu);
+ else if(!$("gameOver").classList.contains("hidden"))playMusic(MUSIC.lose,false);
  else playMusic(MUSIC.lawn);
 });
+function showStatus(s){$("status").textContent=s;}
+function updateSun(){ $("sunCount").textContent=sun; }
+function setSun(v){sun=Math.max(0,Math.floor(v));updateSun();renderCards();}
 
-function showStatus(message) { $("status").textContent = message; }
-function updateSun() { $("sunCount").textContent = sun; }
-function setSun(amount) { sun = Math.max(0, Math.floor(amount)); updateSun(); renderCards(); }
-
-function buildBoard() {
- board.innerHTML = "";
- for (let r=0;r<ROWS;r++) {
-  for (let c=0;c<COLS;c++) {
-   const cell = document.createElement("div");
-   cell.className = "cell";
-   cell.style.left = (c*100/COLS)+"%";
-   cell.style.top = (r*100/ROWS)+"%";
-   cell.dataset.row = r;
-   cell.dataset.col = c;
-   cell.addEventListener("click",()=>onCellClick(r,c));
-   board.appendChild(cell);
-  }
+function buildBoard(){
+ board.innerHTML="";
+ for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+  const cell=document.createElement("div");
+  cell.className="cell";cell.style.left=(c*100/COLS)+"%";cell.style.top=(r*100/ROWS)+"%";
+  cell.dataset.row=r;cell.dataset.col=c;
+  cell.addEventListener("click",()=>onCellClick(r,c));
+  board.appendChild(cell);
  }
 }
-
-function getCell(r,c) {
- return board.querySelector(`.cell[data-row="${r}"][data-col="${c}"]`);
+function getCell(r,c){return board.querySelector(`.cell[data-row="${r}"][data-col="${c}"]`);}
+function togglePlantSelection(type){
+ if(!gameRunning)return;
+ selectedPlant=selectedPlant===type?null:type;
+ renderCards();
+ showStatus(selectedPlant?"已选择："+plantName(selectedPlant)+"，点击草坪种植。":"已取消植物选择。");
 }
+function plantName(type){return type==="pea"?"总统豌豆射手":type==="sun"?"阳光将":"共产炸弹";}
+$("cards").addEventListener("click",e=>{
+ const card=e.target.closest(".card");if(card)togglePlantSelection(card.dataset.plant);
+});
+$("cancelBtn").addEventListener("click",()=>{selectedPlant=null;renderCards();showStatus("已取消植物选择。");});
 
-function onCellClick(r,c) {
- if (!gameRunning) return;
- const existing = plants.find(p=>p.row===r&&p.col===c);
- if (existing) {
-  if (selectedPlant) {
-   showStatus("这里已经有植物了。点击植物可以升级。");
-  } else {
-   upgradePlant(existing);
-  }
-  return;
+function onCellClick(r,c){
+ if(!gameRunning)return;
+ const existing=plants.find(p=>p.row===r&&p.col===c);
+ if(existing){
+  if(selectedPlant){showStatus("这里已经有植物了。先取消选择才能升级。");return;}
+  upgradePlant(existing);return;
  }
- if (!selectedPlant) {
-  showStatus("先选择植物卡片，或点击已有植物升级。");
-  return;
- }
- const cost = COST[selectedPlant];
- if (sun < cost) {
-  showStatus("阳光不足！还需要 "+(cost-sun)+" 阳光。");
-  return;
- }
+ if(!selectedPlant){showStatus("先选择植物卡片，或点击已有植物升级。");return;}
+ const type=selectedPlant,cost=COST[type];
+ if(sun<cost){showStatus("阳光不足！还需要 "+(cost-sun)+" 阳光。");return;}
  setSun(sun-cost);
- plants.push({
-  id:nextId++, type:selectedPlant,row:r,col:c,level:1,
-  hp:100,shootTimer:0,produceTimer:4
- });
- selectedPlant = null;
- renderCards();
- renderPlants();
- showStatus(r+1+" 行，第 "+(c+1)+" 格：种植成功！");
+ if(type==="bomb"){
+  // 共产炸弹：以种植格为中心，严格按行列距离计算3×3范围
+  const affected=zombies.filter(z=>{
+   const zombieCol=Math.floor(z.x*COLS);
+   return Math.abs(z.row-r)<=1&&Math.abs(zombieCol-c)<=1;
+  });
+  affected.forEach(z=>z.hp-=500);
+  zombies=zombies.filter(z=>z.hp>0);
+  createBlast(r,c);
+  selectedPlant=null;renderCards();renderZombies();
+  showStatus("💥 共产炸弹引爆！3×3范围内的僵尸受到500点伤害！");
+  checkWaveClear();
+  return;
+ }
+ plants.push({id:nextId++,type,row:r,col:c,level:1,hp:100,shootTimer:0,produceTimer:4});
+ selectedPlant=null;renderCards();renderPlants();
+ showStatus("种植成功："+plantName(type)+"！");
 }
 
-function togglePlantSelection(type) {
- if (!gameRunning) return;
- selectedPlant = selectedPlant === type ? null : type;
- renderCards();
- showStatus(selectedPlant ? "已选择："+(selectedPlant==="pea"?"总统豌豆射手":"阳光将")+"，点击草坪种植。" : "已取消植物选择。");
+function createBlast(r,c){
+ const blast=document.createElement("div");
+ blast.className="blast-effect";blast.textContent="💥";
+ blast.style.left=((c+.5)/COLS*100)+"%";
+ blast.style.top=((r+.5)/ROWS*100)+"%";
+ board.appendChild(blast);
+ setTimeout(()=>blast.remove(),500);
 }
-
-function renderCards() {
+function renderCards(){
  document.querySelectorAll(".card").forEach(card=>{
   const type=card.dataset.plant;
   card.classList.toggle("selected",selectedPlant===type);
   card.classList.toggle("disabled",sun<COST[type]);
  });
 }
-
-$("cards").addEventListener("click",e=>{
- const card=e.target.closest(".card");
- if(card) togglePlantSelection(card.dataset.plant);
-});
-$("cancelBtn").addEventListener("click",()=>{
- selectedPlant=null;renderCards();showStatus("已取消植物选择。");
-});
-
-function renderPlants() {
+function renderPlants(){
  board.querySelectorAll(".plant-image,.plant-level,.plant-emoji-board").forEach(el=>el.remove());
- for (const p of plants) {
-  const cell=getCell(p.row,p.col);
-  if(!cell) continue;
-  const img=document.createElement("img");
-  img.className="plant-image";
-  img.alt=p.type==="pea"?"豌豆射手":"向日葵";
-  img.src=p.type==="pea"?IMAGES.pea:IMAGES.sunPlant;
+ for(const p of plants){
+  const cell=getCell(p.row,p.col);if(!cell)continue;
+  const img=document.createElement("img");img.className="plant-image";img.alt=plantName(p.type);
+  img.src=p.type==="pea"?IMAGES.pea:p.type==="sun"?IMAGES.sunPlant:IMAGES.bomb;
   img.onerror=function(){
    this.remove();
    if(!cell.querySelector(".plant-emoji-board")){
-    const emoji=document.createElement("div");
-    emoji.className="plant-emoji-board";
-    emoji.textContent=p.type==="pea"?"🫛":"🌻";
-    cell.appendChild(emoji);
+    const em=document.createElement("div");em.className="plant-emoji-board";
+    em.textContent=p.type==="pea"?"🫛":p.type==="sun"?"🌻":"💣";cell.appendChild(em);
    }
   };
   cell.appendChild(img);
-  if(p.level>1){
-   const lv=document.createElement("span");
-   lv.className="plant-level";
-   lv.textContent="Lv."+p.level;
-   cell.appendChild(lv);
-  }
+  if(p.level>1){const lv=document.createElement("span");lv.className="plant-level";lv.textContent="Lv."+p.level;cell.appendChild(lv);}
  }
 }
-
-function upgradePlant(p) {
+function upgradePlant(p){
  if(p.level>=3){showStatus("这株植物已经升到最高等级！");return;}
  const cost=75*p.level;
  if(sun<cost){showStatus("升级需要 "+cost+" 阳光。");return;}
- setSun(sun-cost);
- p.level++;
- p.hp+=50;
- renderPlants();
+ setSun(sun-cost);p.level++;p.hp+=50;renderPlants();
  showStatus("升级成功！现在是 Lv."+p.level+"。");
 }
-
-function spawnSun(x,y,amount=25) {
- const id=nextId++;
- sunDrops.push({id,x,y,amount,life:12});
- renderSunDrops();
+function spawnSun(x,y,amount=25){
+ sunDrops.push({id:nextId++,x,y,amount,life:12});renderSunDrops();
 }
-function renderSunDrops() {
+function renderSunDrops(){
  board.querySelectorAll(".sun-drop").forEach(el=>el.remove());
  for(const s of sunDrops){
-  const img=document.createElement("img");
-  img.className="sun-drop";img.alt="收集阳光";img.src=IMAGES.sun;
+  const img=document.createElement("img");img.className="sun-drop";img.alt="收集阳光";img.src=IMAGES.sun;
   img.style.left=(s.x*100)+"%";img.style.top=(s.y*100)+"%";
   img.onerror=function(){this.style.display="none";};
   img.addEventListener("click",e=>{
-   e.stopPropagation();
-   const i=sunDrops.findIndex(d=>d.id===s.id);
-   if(i<0)return;
-   setSun(sun+s.amount);
-   sunDrops.splice(i,1);
-   renderSunDrops();
-   showStatus("收集到 "+s.amount+" 阳光！");
+   e.stopPropagation();const i=sunDrops.findIndex(d=>d.id===s.id);if(i<0)return;
+   setSun(sun+s.amount);sunDrops.splice(i,1);renderSunDrops();showStatus("收集到 "+s.amount+" 阳光！");
   });
   board.appendChild(img);
  }
 }
-
-function spawnZombie(boss=false) {
+function spawnZombie(boss=false){
  if(!gameRunning)return;
  const row=Math.floor(Math.random()*ROWS);
- const z={
-  id:nextId++,row,x:1.01,hp:boss?900:160,maxHp:boss?900:160,
-  speed:boss?0.006:0.012+Math.random()*0.002,
-  damage:boss?32:18,boss,attackTimer:0
- };
- zombies.push(z);
+ zombies.push({id:nextId++,row,x:1.01,hp:boss?900:160,maxHp:boss?900:160,
+  speed:boss?.006:.012+Math.random()*.002,damage:boss?32:18,boss,attackTimer:0});
  renderZombies();
 }
-
-function renderZombies() {
+function renderZombies(){
  board.querySelectorAll(".zombie").forEach(el=>el.remove());
  for(const z of zombies){
-  const el=document.createElement("div");
-  el.className="zombie";
-  el.style.left=(z.x*100-5)+"%";
-  el.style.top=(z.row*20+0.5)+"%";
-  el.innerHTML=(z.boss?"👹":"🧟")+"<div class='hp'><span style='width:"+(Math.max(0,z.hp/z.maxHp)*100)+"%'></span></div>";
+  const el=document.createElement("div");el.className="zombie";
+  el.style.left=(z.x*100-5)+"%";el.style.top=(z.row*20+.5)+"%";
+  el.innerHTML=(z.boss?"👹":"🧟")+"<div class='hp'><span style='width:"+Math.max(0,z.hp/z.maxHp*100)+"%'></span></div>";
   if(z.boss)el.style.fontSize="clamp(28px,6vw,55px)";
   board.appendChild(el);
  }
 }
-
-function firePea(p) {
- peas.push({
-  id:nextId++,row:p.row,
-  x:(p.col+0.72)/COLS,y:(p.row+0.48)/ROWS,
-  speed:0.46+0.06*p.level,damage:32+18*(p.level-1)
- });
+function firePea(p){
+ peas.push({id:nextId++,row:p.row,x:(p.col+.72)/COLS,y:(p.row+.48)/ROWS,speed:.46+.06*p.level,damage:32+18*(p.level-1)});
 }
-function renderPeas() {
+function renderPeas(){
  board.querySelectorAll(".pea").forEach(el=>el.remove());
  for(const p of peas){
-  const img=document.createElement("img");
-  img.className="pea";img.alt="豌豆子弹";img.src=IMAGES.bullet;
-  img.style.left=(p.x*100)+"%";
-  img.style.top=(p.y*100-1.5)+"%";
-  img.onerror=function(){this.style.display="none";};
-  board.appendChild(img);
+  const img=document.createElement("img");img.className="pea";img.alt="豌豆子弹";img.src=IMAGES.bullet;
+  img.style.left=(p.x*100)+"%";img.style.top=(p.y*100-1.5)+"%";
+  img.onerror=function(){this.style.display="none";};board.appendChild(img);
  }
 }
-
-function useSkill() {
+function useSkill(){
  if(!gameRunning)return;
  if(sun<100){showStatus("全屏攻击需要100阳光！");return;}
- if(zombies.length===0){showStatus("当前没有僵尸。");return;}
- setSun(sun-100);
- zombies.forEach(z=>z.hp-=160);
- zombies=zombies.filter(z=>z.hp>0);
- renderZombies();
- showStatus("全屏攻击发动！僵尸受到160点伤害。");
- checkWaveClear();
+ if(!zombies.length){showStatus("当前没有僵尸。");return;}
+ setSun(sun-100);zombies.forEach(z=>z.hp-=160);zombies=zombies.filter(z=>z.hp>0);
+ renderZombies();showStatus("全屏攻击发动！僵尸受到160点伤害。");checkWaveClear();
 }
 $("skillBtn").addEventListener("click",useSkill);
 
-function checkWaveClear() {
+function checkWaveClear(){
  if(!gameRunning)return;
  const elapsed=(performance.now()-gameStartTime)/1000;
- if(elapsed>45 && zombies.length===0){
-  wave++;
-  $("waveText").textContent=wave;
-  gameStartTime=performance.now();
-  spawnInterval=Math.max(2.2,5.5-(wave-1)*0.3);
+ if(elapsed>45&&zombies.length===0){
+  wave++;$("waveText").textContent=wave;gameStartTime=performance.now();
+  spawnInterval=Math.max(2.2,5.5-(wave-1)*.3);
   showStatus("第 "+wave+" 波开始！僵尸变得更强了。");
  }
 }
-
-function finishGame(win) {
+function finishGame(win){
  if(!gameRunning)return;
- gameRunning=false;
- cancelAnimationFrame(animationId);
- $("gameOver").classList.remove("hidden");
+ gameRunning=false;cancelAnimationFrame(animationId);$("gameOver").classList.remove("hidden");
  $("resultTitle").textContent=win?"🎉 冒险成功！":"🧠 失败，被吃掉脑子了！";
  $("resultText").textContent=win?"你成功守住了草坪！":"僵尸突破了防线，再试一次吧。";
- if(!win){currentMusic="";playMusic(MUSIC.lose,false);}
- else {bgMusic.pause();currentMusic="";}
+ if(!win){currentMusic="";playMusic(MUSIC.lose,false);}else{bgMusic.pause();currentMusic="";}
 }
-
-function tick(now) {
+function tick(now){
  if(!gameRunning)return;
- const dt=Math.min(0.05,(now-lastTime)/1000||0.016);
- lastTime=now;
- zombieSpawnTimer+=dt;
- sunTimer+=dt;
- if(zombieSpawnTimer>=spawnInterval && zombies.length<MAX_WAVE_ZOMBIES+(wave-1)*2){
-  zombieSpawnTimer=0;
-  spawnZombie(false);
- }
+ const dt=Math.min(.05,(now-lastTime)/1000||.016);lastTime=now;
+ zombieSpawnTimer+=dt;sunTimer+=dt;
+ if(zombieSpawnTimer>=spawnInterval&&zombies.length<12+(wave-1)*2){zombieSpawnTimer=0;spawnZombie(false);}
  if(sunTimer>=4){
   sunTimer=0;
   plants.filter(p=>p.type==="sun").forEach(p=>{
    p.produceTimer-=4;
-   if(p.produceTimer<=0){
-    p.produceTimer=5.5;
-    spawnSun((p.col+0.25)/COLS,(p.row+0.12)/ROWS,25*p.level);
-   }
+   if(p.produceTimer<=0){p.produceTimer=5.5;spawnSun((p.col+.25)/COLS,(p.row+.12)/ROWS,25*p.level);}
   });
  }
- if(now-lastSunDrop>7000){
-  lastSunDrop=now;
-  spawnSun(0.05+Math.random()*0.88,0.02+Math.random()*0.55,25);
- }
+ if(now-lastSunDrop>7000){lastSunDrop=now;spawnSun(.05+Math.random()*.88,.02+Math.random()*.55,25);}
  for(const p of plants){
   if(p.type==="pea"){
    p.shootTimer+=dt;
-   const laneHas=zombies.some(z=>z.row===p.row&&z.x>(p.col+0.3)/COLS);
-   if(laneHas&&p.shootTimer>Math.max(0.55,1.35-0.18*(p.level-1))){
+   if(zombies.some(z=>z.row===p.row&&z.x>(p.col+.3)/COLS)&&p.shootTimer>Math.max(.55,1.35-.18*(p.level-1))){
     p.shootTimer=0;firePea(p);
    }
   }
  }
  for(const pea of peas){
   pea.x+=pea.speed*dt;
-  const hit=zombies.find(z=>z.row===pea.row&&Math.abs(z.x-pea.x)<0.055);
+  const hit=zombies.find(z=>z.row===pea.row&&Math.abs(z.x-pea.x)<.055);
   if(hit){hit.hp-=pea.damage;pea.x=2;}
  }
  peas=peas.filter(p=>p.x<1.1);
  for(const z of zombies){
-  const plant=plants.find(p=>p.row===z.row && Math.abs(z.x-(p.col+0.5)/COLS)<0.075);
+  const plant=plants.find(p=>p.row===z.row&&Math.abs(z.x-(p.col+.5)/COLS)<.075);
   if(plant){
    z.attackTimer+=dt;
-   if(z.attackTimer>0.8){
+   if(z.attackTimer>.8){
     z.attackTimer=0;plant.hp-=z.damage;
-    if(plant.hp<=0){
-     plants=plants.filter(p=>p.id!==plant.id);
-     renderPlants();
-    }
+    if(plant.hp<=0){plants=plants.filter(p=>p.id!==plant.id);renderPlants();}
    }
-  }else{
-   z.x-=z.speed*dt;
-  }
-  if(z.x<0.015){finishGame(false);return;}
+  }else z.x-=z.speed*dt;
+  if(z.x<.015){finishGame(false);return;}
  }
  zombies=zombies.filter(z=>z.hp>0);
  sunDrops=sunDrops.filter(s=>(s.life-=dt)>0);
- renderPlants();
- renderZombies();
- renderPeas();
- renderSunDrops();
- checkWaveClear();
+ renderPlants();renderZombies();renderPeas();renderSunDrops();checkWaveClear();
  animationId=requestAnimationFrame(tick);
 }
-
-function startGame(isDev=false) {
- devMode=isDev;
- $("menu").classList.add("hidden");
- $("game").classList.remove("hidden");
- $("gameOver").classList.add("hidden");
- $("devPanel").classList.toggle("hidden",!devMode);
- resetState(false);
- gameRunning=true;
- lastTime=performance.now();
- gameStartTime=lastTime;
- lastSunDrop=lastTime;
- currentMusic="";
- playMusic(MUSIC.lawn,true);
- animationId=requestAnimationFrame(tick);
+function startGame(isDev=false){
+ devMode=isDev;$("menu").classList.add("hidden");$("game").classList.remove("hidden");$("gameOver").classList.add("hidden");
+ resetState();gameRunning=true;lastTime=performance.now();gameStartTime=lastTime;lastSunDrop=lastTime;
+ currentMusic="";playMusic(MUSIC.lawn,true);animationId=requestAnimationFrame(tick);
  showStatus(devMode?"开发者模式已开启。":"开始冒险！种植植物，守住草坪！");
 }
-
-function resetState(keepDev=true) {
- cancelAnimationFrame(animationId);
- plants=[];zombies=[];peas=[];sunDrops=[];
- selectedPlant=null;sun=150;wave=1;nextId=1;
- zombieSpawnTimer=0;sunTimer=0;spawnInterval=5.5;
- gameRunning=false;
- updateSun();$("waveText").textContent=wave;
- buildBoard();renderCards();renderPlants();renderZombies();renderPeas();renderSunDrops();
- if(!keepDev) $("devPanel").classList.toggle("hidden",!devMode);
+function resetState(){
+ cancelAnimationFrame(animationId);plants=[];zombies=[];peas=[];sunDrops=[];
+ selectedPlant=null;sun=150;wave=1;nextId=1;zombieSpawnTimer=0;sunTimer=0;spawnInterval=5.5;gameRunning=false;
+ updateSun();$("waveText").textContent=wave;buildBoard();renderCards();renderPlants();renderZombies();renderPeas();renderSunDrops();
+ $("devPanel").classList.toggle("hidden",!devMode);
 }
-
-function goMenu() {
- gameRunning=false;
- cancelAnimationFrame(animationId);
- $("game").classList.add("hidden");
- $("gameOver").classList.add("hidden");
- $("menu").classList.remove("hidden");
- currentMusic="";
- playMusic(MUSIC.menu,true);
+function goMenu(){
+ gameRunning=false;cancelAnimationFrame(animationId);
+ $("game").classList.add("hidden");$("gameOver").classList.add("hidden");$("menu").classList.remove("hidden");
+ currentMusic="";playMusic(MUSIC.menu,true);
 }
-
-$("startBtn").addEventListener("click",()=>{
- playEffect(MUSIC.start);
- startGame(false);
-});
-$("devBtn").addEventListener("click",()=>{
- playEffect(MUSIC.start);
- startGame(true);
-});
+$("startBtn").addEventListener("click",()=>{playEffect(MUSIC.start);startGame(false);});
+$("devBtn").addEventListener("click",()=>{playEffect(MUSIC.start);startGame(true);});
 $("backBtn").addEventListener("click",goMenu);
 $("retryBtn").addEventListener("click",()=>startGame(devMode));
 $("overMenuBtn").addEventListener("click",goMenu);
 
-function getSaveData() {
- return {
-  sun,wave,plants,zombies,peas,sunDrops,selectedPlant,
-  nextId,devMode,spawnInterval
- };
-}
-function saveGame() {
+function saveGame(){
  try{
-  localStorage.setItem("pvz_history_save_v1",JSON.stringify(getSaveData()));
+  localStorage.setItem("pvz_history_save_v1",JSON.stringify({sun,wave,plants,zombies,peas,sunDrops,selectedPlant,nextId,devMode,spawnInterval}));
   showStatus("存档成功！");
  }catch(e){showStatus("存档失败："+e.message);}
 }
-function loadGame() {
+function loadGame(){
  try{
   const raw=localStorage.getItem("pvz_history_save_v1");
   if(!raw){showStatus("没有找到存档。");return;}
-  const data=JSON.parse(raw);
-  sun=data.sun??150;wave=data.wave??1;
-  plants=Array.isArray(data.plants)?data.plants:[];
-  zombies=Array.isArray(data.zombies)?data.zombies:[];
-  peas=Array.isArray(data.peas)?data.peas:[];
-  sunDrops=Array.isArray(data.sunDrops)?data.sunDrops:[];
-  selectedPlant=data.selectedPlant??null;
-  nextId=data.nextId??1;devMode=!!data.devMode;
-  spawnInterval=data.spawnInterval??5.5;
-  $("devPanel").classList.toggle("hidden",!devMode);
-  $("waveText").textContent=wave;
-  updateSun();renderCards();renderPlants();renderZombies();renderPeas();renderSunDrops();
-  showStatus("读档成功！");
+  const d=JSON.parse(raw);
+  sun=d.sun??150;wave=d.wave??1;plants=Array.isArray(d.plants)?d.plants:[];
+  zombies=Array.isArray(d.zombies)?d.zombies:[];peas=Array.isArray(d.peas)?d.peas:[];
+  sunDrops=Array.isArray(d.sunDrops)?d.sunDrops:[];selectedPlant=d.selectedPlant??null;
+  nextId=d.nextId??1;devMode=!!d.devMode;spawnInterval=d.spawnInterval??5.5;
+  $("devPanel").classList.toggle("hidden",!devMode);$("waveText").textContent=wave;
+  updateSun();renderCards();renderPlants();renderZombies();renderPeas();renderSunDrops();showStatus("读档成功！");
  }catch(e){showStatus("读取存档失败："+e.message);}
 }
-$("saveBtn").addEventListener("click",saveGame);
-$("loadBtn").addEventListener("click",loadGame);
-$("devSaveBtn").addEventListener("click",saveGame);
-$("devLoadBtn").addEventListener("click",loadGame);
+$("saveBtn").addEventListener("click",saveGame);$("loadBtn").addEventListener("click",loadGame);
+$("devSaveBtn").addEventListener("click",saveGame);$("devLoadBtn").addEventListener("click",loadGame);
 $("addSunBtn").addEventListener("click",()=>{setSun(sun+500);showStatus("开发者模式：阳光 +500");});
 $("spawnZombieBtn").addEventListener("click",()=>{spawnZombie(false);showStatus("已生成普通僵尸。");});
 $("spawnBossBtn").addEventListener("click",()=>{spawnZombie(true);showStatus("Boss 已登场！");});
 $("clearZombieBtn").addEventListener("click",()=>{zombies=[];renderZombies();showStatus("僵尸已清除。");});
-$("resetBtn").addEventListener("click",()=>{
- if(!confirm("确定要重置当前游戏吗？"))return;
- startGame(devMode);
-});
+$("resetBtn").addEventListener("click",()=>{if(confirm("确定要重置当前游戏吗？"))startGame(devMode);});
 
 document.addEventListener("visibilitychange",()=>{
  if(document.hidden){bgMusic.pause();effectMusic.pause();}
  else if(musicEnabled){
+  currentMusic="";
   if(!$("menu").classList.contains("hidden"))playMusic(MUSIC.menu);
   else if(gameRunning)playMusic(MUSIC.lawn);
  }
 });
-
-buildBoard();
-updateSun();
-renderCards();
-playMusic(MUSIC.menu,true);
+buildBoard();updateSun();renderCards();playMusic(MUSIC.menu,true);
 </script>
 </body>
 </html>
